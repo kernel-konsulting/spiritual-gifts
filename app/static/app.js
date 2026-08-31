@@ -211,6 +211,12 @@ $("#btn-retake").addEventListener("click", () => {
   showView("assessment");
 });
 
+$("#btn-reset").addEventListener("click", () => {
+  if (!confirm("Clear all your answers and start over?")) return;
+  QUESTIONS.forEach(([n]) => delete answers[n]);
+  initAssessment();
+});
+
 $("#btn-print").addEventListener("click", () => window.print());
 
 // ---- Start ----
