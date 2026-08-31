@@ -22,7 +22,7 @@ spec:
             - name: GH_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: pantrywise-gh-token
+                  name: spiritual-gifts-gh-token
                   key: GH_TOKEN
           volumeMounts:
             - name: work
