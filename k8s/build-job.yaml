@@ -1,0 +1,44 @@
+# Builds the app image in-cluster with kaniko (matches the pantrywise pattern).
+# Clones this repo from GitHub using the GH PAT secret, builds the Dockerfile,
+# and pushes to the local registry. Run: kubectl apply -f k8s/build-job.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: spiritual-gifts-build
+  namespace: registry
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      initContainers:
+        - name: clone
+          image: alpine/git:2.45.2
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              git clone "https://x-access-token:${GH_TOKEN}@github.com/djdanielsson/spiritual-gifts.git" /work/spiritual-gifts &&
+              echo "cloned OK"
+          env:
+            - name: GH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: pantrywise-gh-token
+                  key: GH_TOKEN
+          volumeMounts:
+            - name: work
+              mountPath: /work
+      containers:
+        - name: build
+          image: gcr.io/kaniko-project/executor:v1.23.2
+          args:
+            - --context=dir:///work/spiritual-gifts
+            - --dockerfile=Dockerfile
+            - --destination=registry.registry.svc:5000/spiritual-gifts:latest
+            - --insecure
+            - --verbosity=info
+          volumeMounts:
+            - name: work
+              mountPath: /work
+      volumes:
+        - name: work
+          emptyDir: {}

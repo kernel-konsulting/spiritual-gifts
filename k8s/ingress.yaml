@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: spiritual-gifts
+  namespace: spiritual-gifts
+  annotations:
+    # Accessible via http://spiritual-gifts.k3s.lab.danielsson.us.com on the LAN
+    nginx.ingress.kubernetes.io/proxy-body-size: "8m"
+  labels:
+    app: spiritual-gifts
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: spiritual-gifts.k3s.lab.danielsson.us.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: web
+                port:
+                  number: 80
