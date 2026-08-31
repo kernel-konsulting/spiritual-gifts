@@ -10,3 +10,7 @@ venv/
 
 # Local env
 .env
+
+# Local functional-test scaffolding (not part of the app)
+.sgtest/
+.sg_test.mjs
