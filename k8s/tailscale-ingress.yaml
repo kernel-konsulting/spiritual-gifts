@@ -1,0 +1,20 @@
+# Exposes the app on the Tailscale network via a MagicDNS hostname.
+# Uses the TSIngress model (ingressClass `tailscale`), which the v1.80
+# Tailscale operator on this k3s (v1.26.5) supports. The operator creates a
+# proxy tailnet device and a MagicDNS name:
+#   https://spiritual-gifts-spiritual-gifts-ts-ingress.tail7f3c08.ts.net
+# (The separate `ingress.yaml` keeps LAN access via Traefik.)
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: spiritual-gifts-ts
+  namespace: spiritual-gifts
+  annotations:
+    tailscale.com/hostname: spiritual-gifts
+spec:
+  ingressClassName: tailscale
+  defaultBackend:
+    service:
+      name: web
+      port:
+        number: 80

@@ -58,6 +58,22 @@ This deploys into the `spiritual-gifts` namespace on the lab k3s cluster using t
 
 3. Access it at **http://spiritual-gifts.k3s.lab.danielsson.us.com** on the lab network.
 
+### Tailscale access
+
+The app is also exposed on the tailnet via the Tailscale operator (ingressClass `tailscale`):
+
+```bash
+kubectl apply -f k8s/tailscale-ingress.yaml
+```
+
+It becomes reachable at
+**https://spiritual-gifts-spiritual-gifts-ts-ingress.tail7f3c08.ts.net**
+(MagicDNS, port 443).
+
+> The lab cluster's Tailscale operator is pinned to **v1.80.0** because newer
+> versions require `ValidatingAdmissionPolicy` (Kubernetes ≥ 1.31), which k3s v1.26.5
+> does not provide.
+
 ### Manifests
 
 | File | Purpose |
@@ -67,3 +83,4 @@ This deploys into the `spiritual-gifts` namespace on the lab k3s cluster using t
 | `k8s/deployment.yaml` | Deployment (1 replica, probes, resource limits) |
 | `k8s/service.yaml` | Service `web:80 → 8000` |
 | `k8s/ingress.yaml` | traefik ingress → `spiritual-gifts.k3s.lab.danielsson.us.com` |
+| `k8s/tailscale-ingress.yaml` | Tailscale ingress → MagicDNS hostname |
