@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spiritual Gifts Assessment</title>
+  <meta name="description" content="Discover the spiritual gifts God has given you with the LifeWay Spiritual Gifts Survey." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a href="#" data-nav="learn" class="brand">
+        <span class="brand-mark">✦</span>
+        <span class="brand-name">Spiritual Gifts</span>
+      </a>
+      <nav class="nav">
+        <a href="#learn" data-nav="learn" class="nav-link active">Learn</a>
+        <a href="#assessment" data-nav="assessment" class="nav-link">Take the Survey</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- ============ LEARN VIEW ============ -->
+    <section id="view-learn" class="view active">
+      <div class="hero card">
+        <h1>What are spiritual gifts?</h1>
+        <p>
+          Spiritual gifts are abilities God gives to every believer through the Holy Spirit to build up
+          the church and serve others. They are not the same as natural talents — they are empowered by
+          the Spirit and meant for ministry. The Bible lists many of them in Romans 12, 1 Corinthians 12,
+          and Ephesians 4.
+        </p>
+        <p>
+          This assessment uses the widely-used <strong>LifeWay Spiritual Gifts Survey</strong>: 80 short
+          statements you answer honestly (there are no wrong answers — this is not a test). Your answers
+          reveal the gifts where you appear strongest, so you can use them in service to Christ and His body.
+        </p>
+        <div class="hero-actions">
+          <a href="#assessment" data-nav="assessment" class="btn btn-primary">Start the Survey</a>
+          <button class="btn btn-ghost" id="btn-how">How to take it</button>
+        </div>
+      </div>
+
+      <div id="how-modal" class="modal hidden" aria-hidden="true">
+        <div class="modal-card card">
+          <button class="modal-close" id="how-close" aria-label="Close">&times;</button>
+          <h2>How to take the survey</h2>
+          <ol class="how-list">
+            <li>Answer each of the 80 statements on a scale of 1–5.</li>
+            <li>Answer honestly and quickly — your first reaction is usually best.</li>
+            <li>Don't overthink any single item, and don't skip any.</li>
+            <li>There are no right or wrong answers. This is not a test.</li>
+            <li>When finished, your results will rank your 16 gifts with a clear chart.</li>
+          </ol>
+        </div>
+      </div>
+
+      <h2 class="section-title">The 16 gifts</h2>
+      <div class="gift-grid" id="gift-grid"></div>
+    </section>
+
+    <!-- ============ ASSESSMENT VIEW ============ -->
+    <section id="view-assessment" class="view">
+      <div class="assessment-head card">
+        <div class="progress">
+          <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <div class="progress-meta">
+          <span id="progress-count">0 / 80</span>
+          <button class="btn btn-ghost btn-sm" id="btn-reset">Start over</button>
+        </div>
+      </div>
+
+      <div id="question-card" class="card question-card"></div>
+
+      <div id="end-card" class="card end-card hidden">
+        <h2>You're done! 🎉</h2>
+        <p>You answered all 80 statements. Review any unanswered prompts above or see your results.</p>
+        <button class="btn btn-primary" id="btn-see-results">See My Results</button>
+      </div>
+    </section>
+
+    <!-- ============ RESULTS VIEW ============ -->
+    <section id="view-results" class="view">
+      <div class="card results-hero">
+        <h1>Your spiritual gifts</h1>
+        <p>
+          Gifts with the longest bars are where you appear strongest. Your top three gifts are highlighted —
+          prayerfully consider how God may want you to use them in service to His church.
+        </p>
+      </div>
+
+      <div id="top-gifts" class="top-gifts"></div>
+
+      <div class="card chart-card">
+        <h2>Your gifts profile</h2>
+        <div id="chart" class="chart"></div>
+      </div>
+
+      <div class="card reflect-card">
+        <h2>Reflection</h2>
+        <p>The gifts I have begun to discover in my life are:</p>
+        <ol id="reflect-list"></ol>
+        <p class="reflect-promise">
+          After prayer and worship, I am beginning to sense that God wants me to use my spiritual gifts to
+          serve Christ's body by <input id="reflect-input" type="text" placeholder="..." aria-label="how God wants you to serve" />.
+        </p>
+        <button class="btn btn-primary" id="btn-save">Save my reflection</button>
+        <p class="save-note" id="save-note"></p>
+      </div>
+
+      <div class="results-actions">
+        <button class="btn btn-ghost" id="btn-retake">Take the survey again</button>
+        <button class="btn btn-ghost" id="btn-print">Print / save as PDF</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Survey © 2003 LifeWay Christian Resources, revised 2022. Used for instructional purposes.</p>
+      <p class="source-links">
+        <a href="https://www.lifeway.com/en/articles/women-leadership-spiritual-gifts-growth-service" target="_blank" rel="noopener">About spiritual gifts (LifeWay)</a>
+        ·
+        <a href="https://s7d9.scene7.com/is/content/LifeWayChristianResources/Spiritual%5FGifts%5FAssessmentpdf.pdf" target="_blank" rel="noopener">Original survey (PDF)</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
