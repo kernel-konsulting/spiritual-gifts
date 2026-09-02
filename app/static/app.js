@@ -54,6 +54,7 @@ GIFTS.forEach((g) => {
 
 // ---- Assessment view ----
 const questionCard = $("#question-card");
+const endCard = $("#end-card");
 let current = 0;
 
 function initAssessment() {
@@ -73,21 +74,16 @@ function renderProgress() {
 
 function showQuestion() {
   renderProgress();
-  // Determine the next unanswered question (wrap-around review).
-  let next = null;
-  for (let i = current; i < QUESTIONS.length; i++) {
-    const n = QUESTIONS[i][0];
-    if (answers[n] == null) { next = i; break; }
-  }
-  if (next === null) {
-    // All answered -> show the end card.
+
+  // All 80 answered and we're past the last question -> show the end card.
+  if (current >= QUESTIONS.length) {
     questionCard.classList.add("hidden");
-    $("#end-card").classList.remove("hidden");
+    endCard.classList.remove("hidden");
     return;
   }
-  current = next;
+
   questionCard.classList.remove("hidden");
-  $("#end-card").classList.add("hidden");
+  endCard.classList.add("hidden");
 
   const [num, text] = QUESTIONS[current];
   const chosen = answers[num];
@@ -109,21 +105,20 @@ function showQuestion() {
       <button class="btn btn-primary" id="q-next" ${chosen === undefined ? "disabled" : ""}>Next</button>
     </div>`;
 
-  // Wire options
+  // Select an option: record it and re-render (updates selection + enables Next).
   questionCard.querySelectorAll(".option").forEach((b) =>
     b.addEventListener("click", () => {
       answers[num] = parseInt(b.dataset.value, 10);
-      // re-render to move on immediately (also updates selection state)
-      current = current + 1;
       showQuestion();
     })
   );
 
+  // Linear navigation: Back/Next move one question at a time.
   $("#q-prev").addEventListener("click", () => {
-    current = current - 1;
-    while (current >= 0 && answers[QUESTIONS[current][0]] != null) current--;
-    if (current < 0) current = 0;
-    showQuestion();
+    if (current > 0) {
+      current = current - 1;
+      showQuestion();
+    }
   });
   $("#q-next").addEventListener("click", () => {
     if (answers[num] != null) {

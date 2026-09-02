@@ -14,6 +14,10 @@
 
 * { box-sizing: border-box; }
 
+/* Generic hide utility — used by JS to toggle views/cards.
+   (Must exist on its own; previously only .modal.hidden hid anything.) */
+.hidden { display: none !important; }
+
 html { scroll-behavior: smooth; }
 
 body {
@@ -207,6 +211,38 @@ body {
 /* Mobile */
 @media (max-width: 640px) {
   .gift-grid, .top-gifts { grid-template-columns: 1fr; }
-  .bar-row { grid-template-columns: 96px 1fr; }
+
+  /* Results chart: give labels room and let long names wrap. */
+  .bar-row { grid-template-columns: 108px 1fr; gap: 10px; }
+  .bar-label { text-align: left; font-size: 13px; line-height: 1.2; overflow-wrap: anywhere; }
+
   .question-text { font-size: 18px; }
+
+  /* Assessment options: let hints breathe on small screens. */
+  .option { gap: 10px; padding: 11px 12px; }
+  .option-label small { font-size: 11.5px; }
+
+  /* Hero + cards: trim some vertical padding. */
+  .hero { padding: 28px 20px; }
+  .hero h1 { font-size: 24px; }
+  .card { padding: 20px; }
+  .question-card { padding: 22px; }
+
+  /* Keep nav buttons full-width pair but not cramped. */
+  .question-nav { gap: 10px; }
+  .question-nav .btn { flex: 1; text-align: center; }
+
+  /* Reflection input fills its line on mobile. */
+  #reflect-input { width: 100%; margin-top: 8px; }
+
+  /* Top gift cards: full width, roomier. */
+  .top-gift { padding: 18px; }
+  .top-rank { top: -16px; }
+}
+
+@media (max-width: 380px) {
+  .bar-row { grid-template-columns: 92px 1fr; }
+  .header-inner { gap: 6px; }
+  .brand-name { font-size: 16px; }
+  .nav-link { padding: 7px 10px; font-size: 13px; }
 }
